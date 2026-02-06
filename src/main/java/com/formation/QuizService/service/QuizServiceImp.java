@@ -37,7 +37,7 @@ public class QuizServiceImp {
 
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(Integer idQuiz) {
 
-        Quiz quiz = quizRepo.findById(idQuiz).get();
+        Optional<Quiz> quiz = quizRepo.findById(idQuiz);
         List<Integer> quizQuestionsIds = quiz.getQuestionsIds();
        QuestionDto QuestionDto = new QuestionDto();
         QuestionDto.setQuestionsIds(quizQuestionsIds);
