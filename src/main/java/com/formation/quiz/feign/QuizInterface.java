@@ -1,9 +1,8 @@
-package com.formation.QuizService.feign;
+package com.formation.quiz.feign;
 
 
-import com.formation.QuizService.dao.Answer;
-import com.formation.QuizService.dao.QuestionDto;
-import com.formation.QuizService.dao.QuestionWrapper;
+import com.formation.quiz.dao.Answer;
+import com.formation.quiz.dao.QuestionWrapper;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

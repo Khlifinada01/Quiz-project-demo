@@ -1,10 +1,9 @@
-package com.formation.QuizService.controller;
+package com.formation.quiz.controller;
 
 
-import com.formation.QuizService.dao.QuestionWrapper;
-import com.formation.QuizService.dao.QuizDto;
-import com.formation.QuizService.service.QuizServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.formation.quiz.dao.QuestionWrapper;
+import com.formation.quiz.dao.QuizDto;
+import com.formation.quiz.service.QuizServiceImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,7 @@ import java.util.List;
 @RequestMapping("/quiz")
 public class QuizController {
 
-  @Autowired
-  private QuizServiceImp quizServiceImp;
+  QuizServiceImp quizServiceImp=new QuizServiceImp();
 
   @PostMapping("/create")
   public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto) {

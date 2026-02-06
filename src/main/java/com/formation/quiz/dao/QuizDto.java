@@ -1,4 +1,4 @@
-package com.formation.QuizService.dao;
+package com.formation.quiz.dao;
 
 
 import lombok.Data;

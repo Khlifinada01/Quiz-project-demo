@@ -1,8 +1,8 @@
-package com.formation.QuizService.service;
+package com.formation.quiz.service;
 
 
-import com.formation.QuizService.dao.*;
-import com.formation.QuizService.feign.QuizInterface;
+import com.formation.quiz.dao.*;
+import com.formation.quiz.feign.QuizInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class QuizServiceImp {
     private QuizRepo quizRepo;
     @Autowired
     private QuizInterface quizInterface;
-    //private QuestionRepo questionRepo;
+
 
     public ResponseEntity<String> createQuiz(String category, String title, Integer numquestions) {
         // là pour appeler un api depuis un autre microservice on appelle cette interface de feign et on passe els paramétres que attend l'api
@@ -37,11 +37,17 @@ public class QuizServiceImp {
 
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(Integer idQuiz) {
 
-        Optional<Quiz> quiz = quizRepo.findById(idQuiz);
-        List<Integer> quizQuestionsIds = quiz.getQuestionsIds();
-       QuestionDto QuestionDto = new QuestionDto();
-        QuestionDto.setQuestionsIds(quizQuestionsIds);
-        ResponseEntity<List<QuestionWrapper>> questions=  quizInterface.getQuestions(QuestionDto.getQuestionsIds());
-        return ResponseEntity.ok(questions.getBody());
+        Optional<Quiz> quizReturned = quizRepo.findById(idQuiz);
+        if(quizReturned.isPresent()) {
+            Quiz quiz = quizReturned.get();
+
+            List<Integer> quizQuestionsIds = quiz.getQuestionsIds();
+
+            QuestionDto questionDto = new QuestionDto();
+            questionDto.setQuestionsIds(quizQuestionsIds);
+            ResponseEntity<List<QuestionWrapper>> questions = quizInterface.getQuestions(questionDto.getQuestionsIds());
+            return ResponseEntity.ok(questions.getBody());
+        }
+        return null;
     }
 }
